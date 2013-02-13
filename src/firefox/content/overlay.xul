@@ -5,13 +5,13 @@
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <!-- Resources -->
-  <script src="resource://openbadgesverifier_common/async.js"/>
-  <script src="resource://openbadgesverifier_common/jquery-1.9.0.min.js"/>
-  <script src="resource://openbadgesverifier_common/md5.js"/>
-  <script src="resource://openbadgesverifier_common/sha256.js"/>
-  <script src="resource://openbadgesverifier_common/sha512.js"/>
-  <script src="resource://openbadgesverifier_common/zlib.js"/>
-  <script src="resource://openbadgesverifier_common/png.js"/>
+  <script src="resource://openbadgesverifier_common/js/async.js"/>
+  <script src="resource://openbadgesverifier_common/js/jquery-1.9.0.min.js"/>
+  <script src="resource://openbadgesverifier_common/js/md5.js"/>
+  <script src="resource://openbadgesverifier_common/js/sha256.js"/>
+  <script src="resource://openbadgesverifier_common/js/sha512.js"/>
+  <script src="resource://openbadgesverifier_common/js/zlib.js"/>
+  <script src="resource://openbadgesverifier_common/js/png.js"/>
   <script src="verifier.js"/>
 
 
