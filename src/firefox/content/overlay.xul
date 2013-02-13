@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://openbadgesverifier/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://openbadgesverifier/locale/overlay.dtd">
+<overlay id="helloworld-overlay"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <!-- Resources -->
+  <script src="resource://openbadgesverifier_common/async.js"/>
+  <script src="resource://openbadgesverifier_common/jquery-1.9.0.min.js"/>
+  <script src="resource://openbadgesverifier_common/md5.js"/>
+  <script src="resource://openbadgesverifier_common/sha256.js"/>
+  <script src="resource://openbadgesverifier_common/sha512.js"/>
+  <script src="resource://openbadgesverifier_common/zlib.js"/>
+  <script src="resource://openbadgesverifier_common/png.js"/>
+  <script src="verifier.js"/>
+
+
+  <script src="chrome://openbadgesverifier/content/overlay.js"/>
+
+  <menupopup id="menu_ToolsPopup">
+    <menuitem id="helloworld-hello" label="&helloworld;" 
+              oncommand="HelloWorld.onMenuItemCommand(event);"/>
+  </menupopup>
+</overlay>
