@@ -1,0 +1,68 @@
+{
+	"version": "1.0.0",
+	"manifest_version": 2,
+	"default_locale": "en",
+	"name": "__MSG_@@extension_name__",
+	"description": "__MSG_@@extension_description__",
+
+	"icons":
+	{
+		"16": "common/img/icon16.png",
+		"48": "common/img/icon48.png",
+		"128": "common/img/icon128.png"
+	},
+
+	"browser_action":
+	{
+		"default_icon": "common/img/icon48.png",
+		"default_title": "__MSG_@@extension_name__"
+	},
+
+	"background":
+	{
+		"scripts": 
+		[ 
+			"common/js/jquery-1.9.0.min.js",
+			"common/js/async.js",
+			"common/js/zlib.js",
+			"common/js/png.js",
+			"common/js/md5.js",
+			"common/js/sha256.js",
+			"common/js/sha512.js",
+			"common/js/verifier.js",
+			"common/js/displayer.js",
+			"chrome/js/background.js"
+		]
+	},
+
+	"content_scripts":
+	[{
+		"run_at": "document_end",
+		"css": [ "chrome/css/style.css" ],
+		"js": 
+		[ 
+			"common/js/jquery-1.9.0.min.js",
+			"common/js/async.js",
+			"common/js/zlib.js",
+			"common/js/png.js",
+			"common/js/md5.js",
+			"common/js/sha256.js",
+			"common/js/sha512.js",
+			"common/js/verifier.js",
+			"common/js/displayer.js",
+			"chrome/js/content.js"
+		],
+		"matches": [ "http://*/*", "https://*/*" ]
+	}],
+
+	"web_accessible_resources":
+	[
+		"common/img/tick.png",
+	  "common/img/cross.png"
+	],
+
+	"permissions":
+	[
+		"tabs", "http://*/*", "https://*/*"
+	]
+}

@@ -27,7 +27,7 @@
 					tick.css('position', 'absolute');
 					tick.css('width', img.width + 'px');
 					tick.css('height', img.height + 'px');
-					tick.attr('src', chrome.extension.getURL('/img/tick.png'));
+					tick.attr('src', chrome.extension.getURL('/common/img/tick.png'));
 					$(document.body).append(tick);
 				},
 				function (error) {
@@ -43,7 +43,7 @@
 					cross.css('position', 'absolute');
 					cross.css('width', img.width + 'px');
 					cross.css('height', img.height + 'px');
-					cross.attr('src', chrome.extension.getURL('/img/cross.png'));
+					cross.attr('src', chrome.extension.getURL('/common/img/cross.png'));
 					$(document.body).append(cross);
 				}
 			);
