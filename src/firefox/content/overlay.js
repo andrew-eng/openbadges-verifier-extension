@@ -24,13 +24,11 @@ var OpenBadgesVerifier = {
     var tickImageSrc = 'resource://openbadgesverifier_common/img/tick.png';
     var crossImageSrc = 'resource://openbadgesverifier_common/img/cross.png';
 
-    // var email = prompt('Please enter backpack email:');
+    var email = prompt('Please enter backpack email:');
 
-    // if (!email) {
-    //   return;
-    // }
-
-    var email = "andrew.engwy@gmail.com";
+    if (!email) {
+      return;
+    }
 
     $('.badge-result', window.content.document).remove();
 
