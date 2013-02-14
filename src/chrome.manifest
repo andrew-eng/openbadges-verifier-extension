@@ -1,7 +1,8 @@
-content	openbadgesverifier	firefox/content/
-overlay	chrome://browser/content/browser.xul	chrome://openbadgesverifier/content/overlay.xul
+content  openbadgesverifier                firefox/content/
+skin     openbadgesverifier  classic/1.0   firefox/skin/
+locale   openbadgesverifier  en-US         firefox/locale/en-US/
+resource openbadgesverifier_common         common/
 
-skin  openbadgesverifier  classic/1.0 skin/
-locale	openbadgesverifier	en-US	firefox/locale/en-US/
+style    chrome://global/content/customizeToolbar.xul chrome://openbadgesverifier/skin/button.css
 
-resource openbadgesverifier_common common/
+overlay	 chrome://browser/content/browser.xul	chrome://openbadgesverifier/content/overlay.xul

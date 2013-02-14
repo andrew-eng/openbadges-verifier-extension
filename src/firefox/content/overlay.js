@@ -1,12 +1,28 @@
-var HelloWorld = {
+/* global $, Firefox, prompt, Firebug, document, OpenBadges */
+
+var OpenBadgesVerifier = {
+
   onLoad: function() {
-    // initialization code
+    'use strict';
     this.initialized = true;
+  },
+
+  appendImageToBody : function(top, left, width, height, src) {
+    var image = $('<img>', window.content.document);
+    image.addClass('badge-result');
+    image.css('position', 'absolute');
+    image.css('top', top + 'px');
+    image.css('left', left + 'px');
+    image.css('width', width + 'px');
+    image.css('height', height + 'px');
+    image.attr('src', src);
+    $('body', window.content.document).append(image);
   },
 
   onMenuItemCommand: function() {
 
-    var email = "andrew.engwy@gmail.com";
+    var tickImageSrc = 'resource://openbadgesverifier_common/img/tick.png';
+    var crossImageSrc = 'resource://openbadgesverifier_common/img/cross.png';
 
     // var email = prompt('Please enter backpack email:');
 
@@ -14,105 +30,33 @@ var HelloWorld = {
     //   return;
     // }
 
-    Firebug.Console.log("FUCK THIS SHIT");
+    var email = "andrew.engwy@gmail.com";
 
-    var images = content.document.getElementsByTagName("img");
-
-    // for (var i = 0; i < images.length; i++) {
-    //   Firebug.Console.log("img: "+ images[i].src);
-
-    //   var img = images[i];
-
-    //   Firebug.Console.log(i + ": (" + img.x + ", " + img.y + ")");
-
-    //   OpenBadges.Verifier.verify(email, img.src,
-    //     function (assertion) {
-    //       Firebug.Console.log('Verified: `' + assertion.badge.name + '`');
-
-    //       var tick = content.document.createElement("img");
-    //       tick.style.top = img.style.top;
-    //       tick.style.left = img.style.left;
-    //       tick.style.width = img.width + 'px';
-    //       tick.style.height = img.height + 'px';
-    //       tick.style.position = 'absolute';
-    //       tick.src = 'resource://openbadgesverifier_common/img/tick.png';
-
-    //       // var tick = $('<img>', content.document);
-    //       // tick.addClass('badge-result');
-    //       // tick.css('top', img.y + 'px');
-    //       // tick.css('left', img.x + 'px');
-    //       // tick.css('position', 'absolute');
-    //       // tick.css('width', img.width + 'px');
-    //       // tick.css('height', img.height + 'px');
-    //       // tick.attr('src', "resource://openbadgesverifier_common/img/tick.png");
-
-    //       // Firebug.Console.log("tick.css: " + tick.style);
-    //       // content.document.body.appendChild(tick);
-
-    //       var body = content.document.getElementsByTagName("body");
-    //       body[0].appendChild(tick);
-    //       // $(document.body, content.document).append(tick);
-    //     },
-    //     function (error) {
-    //       Firebug.Console.log(error);
-    //       if (error === 'Not a badge.') {
-    //         return;
-    //       }
-
-    //       // var cross = $('<img>');
-    //       // cross.addClass('badge-result');
-    //       // cross.css('top', img.y + 'px');
-    //       // cross.css('left', img.x + 'px');
-    //       // cross.css('position', 'absolute');
-    //       // cross.css('width', img.width + 'px');
-    //       // cross.css('height', img.height + 'px');
-    //       // cross.attr('src', chrome.extension.getURL('/img/cross.png'));
-    //       // $(document.body).append(cross);
-    //     }
-    //   );
-    // }
-
-    // // $('.badge-result').remove();
+    $('.badge-result', window.content.document).remove();
 
     // TODO: search css for urls in background styles too
-    $('img[src$=".png"]', content.document).each(function (index, img) {
-
-      Firebug.Console.log("img: " + img);
+    $('img[src$=".png"]', window.content.document).each(function (index, img) {
 
       OpenBadges.Verifier.verify(email, img.src,
         function (assertion) {
           Firebug.Console.log('Verified: `' + assertion.badge.name + '`');
-          // console.log('Verified: `' + assertion.badge.name + '`');
 
-          var tick = $('<img>');
-          tick.addClass('badge-result');
-          tick.css('top', img.y + 'px');
-          tick.css('left', img.x + 'px');
-          tick.css('position', 'absolute');
-          tick.css('width', img.width + 'px');
-          tick.css('height', img.height + 'px');
-          tick.attr('src', 'resource://openbadgesverifier_common/img/tick.png');
-          $(content.document.body).append(tick);
+          var offset = $(img).offset();
+          OpenBadgesVerifier.appendImageToBody(offset.top, offset.left,
+            img.width, img.height, tickImageSrc);
         },
         function (error) {
-          // console.log(error);
-          // if (error === 'Not a badge.') {
-          //   return;
-          // }
+          Firebug.Console.log(error);
+          if (error === 'Not a badge.') {
+            return;
+          }
 
-          // var cross = $('<img>');
-          // cross.addClass('badge-result');
-          // cross.css('top', img.y + 'px');
-          // cross.css('left', img.x + 'px');
-          // cross.css('position', 'absolute');
-          // cross.css('width', img.width + 'px');
-          // cross.css('height', img.height + 'px');
-          // cross.attr('src', chrome.extension.getURL('/img/cross.png'));
-          // $(document.body).append(cross);
+          OpenBadgesVerifier.appendImageToBody(offset.top, offset.left,
+            img.width, img.height, tickImageSrc);
         }
       );
     });
   }
 };
 
-window.addEventListener("load", function(e) { HelloWorld.onLoad(e); }, false); 
+window.addEventListener("load", function(e) { OpenBadgesVerifier.onLoad(e); }, false); 

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<?xml-stylesheet href="chrome://openbadgesverifier/skin/overlay.css" type="text/css"?>
+<?xml-stylesheet href="chrome://openbadgesverifier/skin/button.css" type="text/css"?>
 <!DOCTYPE overlay SYSTEM "chrome://openbadgesverifier/locale/overlay.dtd">
 <overlay id="helloworld-overlay"
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -12,13 +12,26 @@
   <script src="resource://openbadgesverifier_common/js/sha512.js"/>
   <script src="resource://openbadgesverifier_common/js/zlib.js"/>
   <script src="resource://openbadgesverifier_common/js/png.js"/>
-  <script src="verifier.js"/>
+  <script src="resource://openbadgesverifier_common/js/verifier.js"/>
 
-
+  <!-- Overlay -->
   <script src="chrome://openbadgesverifier/content/overlay.js"/>
 
+  <!-- Tool Menu -->
   <menupopup id="menu_ToolsPopup">
-    <menuitem id="helloworld-hello" label="&helloworld;" 
-              oncommand="HelloWorld.onMenuItemCommand(event);"/>
+    <menuitem id="verify-menu"
+      label="&verifybadges;"
+      oncommand="OpenBadgesVerifier.onMenuItemCommand(event);"
+    />
   </menupopup>
+
+  <!-- Toolbar Button -->
+  <toolbarpalette id="BrowserToolbarPalette">
+    <toolbarbutton id="verify-button"
+      label="&verifybadges;"
+      tooltiptext="&verifybadges;"
+      oncommand="OpenBadgesVerifier.onMenuItemCommand();"
+      class="toolbarbutton-1 chromeclass-toolbar-additional custombutton"
+    />
+  </toolbarpalette>
 </overlay>

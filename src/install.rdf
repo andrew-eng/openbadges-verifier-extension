@@ -9,15 +9,7 @@
     <em:version>2.0</em:version>
     <em:description>An extension to verify Open Badges Infrastructure compliant digital badges.</em:description>
     <em:creator>Andrew Eng</em:creator>
-    
-    <!-- optional items -->
-    <!--<em:contributor>A person who helped you</em:contributor>
-    <em:contributor>Another one</em:contributor>
-    <em:homepageURL>http://kb.mozillazine.org/Getting_started_with_extension_development</em:homepageURL> -->
-    <!--em:optionsURL>chrome://sampleext/content/settings.xul</em:optionsURL>
-    <em:aboutURL>chrome://sampleext/content/about.xul</em:aboutURL>
-    <em:iconURL>chrome://sampleext/skin/mainicon.png</em:iconURL>
-    <em:updateURL>http://sampleextension.mozdev.org/update.rdf</em:updateURL-->
+    <em:iconURL>resource://openbadgesverifier_common/img/icon48.png</em:iconURL>
 
     <!-- Firefox -->
     <em:targetApplication>
