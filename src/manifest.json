@@ -38,7 +38,7 @@
 	"content_scripts":
 	[{
 		"run_at": "document_end",
-		"css": [ "chrome/css/style.css" ],
+		"css": [ "common/css/lightbox-style.css" ],
 		"js": 
 		[ 
 			"common/js/jquery-1.9.0.min.js",
@@ -58,7 +58,9 @@
 	"web_accessible_resources":
 	[
 		"common/img/tick.png",
-	  "common/img/cross.png"
+	  "common/img/cross.png",
+	  "common/img/icon128.png",
+	  "common/html/lightbox.html"
 	],
 
 	"permissions":
