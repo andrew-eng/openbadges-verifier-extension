@@ -7,18 +7,6 @@ var OpenBadgesVerifier = {
     this.initialized = true;
   },
 
-  appendImageToBody : function(top, left, width, height, src) {
-    var image = $('<img>', window.content.document);
-    image.addClass('badge-result');
-    image.css('position', 'absolute');
-    image.css('top', top + 'px');
-    image.css('left', left + 'px');
-    image.css('width', width + 'px');
-    image.css('height', height + 'px');
-    image.attr('src', src);
-    $('body', window.content.document).append(image);
-  },
-
   appendVerifiedIconToBadge : function(badge, verified) {
 
     var MIN_ICON_SIZE = 16;
@@ -44,8 +32,15 @@ var OpenBadgesVerifier = {
       iconSrc = CROSS_IMAGE_SRC;
     }
 
-    OpenBadgesVerifier.appendImageToBody(iconTop, iconLeft, iconWidth, iconWidth,
-      iconSrc);
+    var icon = $('<img>', window.content.document);
+    icon.addClass('badge-result');
+    icon.css('position', 'absolute');
+    icon.css('top', iconTop + 'px');
+    icon.css('left', iconLeft + 'px');
+    icon.css('width', iconWidth + 'px');
+    icon.css('height', iconWidth + 'px');
+    icon.attr('src', iconSrc);
+    $('body', window.content.document).append(icon);
   },
 
   onMenuItemCommand: function() {

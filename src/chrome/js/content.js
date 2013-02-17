@@ -32,15 +32,15 @@
 	    }
 
 	    // Append image to body
-	    var image = $('<img>');
-	    image.addClass('badge-result');
-	    image.css('position', 'absolute');
-	    image.css('top', iconTop + 'px');
-	    image.css('left', iconLeft + 'px');
-	    image.css('width', iconWidth + 'px');
-	    image.css('height', iconWidth + 'px');
-	    image.attr('src', iconSrc);
-	    $(document.body).append(image);
+	    var icon = $('<img>');
+	    icon.addClass('badge-result');
+	    icon.css('position', 'absolute');
+	    icon.css('top', iconTop + 'px');
+	    icon.css('left', iconLeft + 'px');
+	    icon.css('width', iconWidth + 'px');
+	    icon.css('height', iconWidth + 'px');
+	    icon.attr('src', iconSrc);
+	    $(document.body).append(icon);
 	  };
 
 		var email = prompt('Please enter backpack email:');
@@ -77,15 +77,6 @@
 						console.log('Verified: `' + assertion.badge.name + '`');
 
 						appendVerifiedIconToBadge(img, true);
-						// var tick = $('<img>');
-						// tick.addClass('badge-result');
-						// tick.css('top', img.y + 'px');
-						// tick.css('left', img.x + 'px');
-						// tick.css('position', 'absolute');
-						// tick.css('width', img.width + 'px');
-						// tick.css('height', img.height + 'px');
-						// tick.attr('src', chrome.extension.getURL('/common/img/tick.png'));
-						// $(document.body).append(tick);
 
 						success++;
 						callback();
@@ -99,17 +90,6 @@
 						}
 
 						appendVerifiedIconToBadge(img, false);
-
-
-						// var cross = $('<img>');
-						// cross.addClass('badge-result');
-						// cross.css('top', img.y + 'px');
-						// cross.css('left', img.x + 'px');
-						// cross.css('position', 'absolute');
-						// cross.css('width', img.width + 'px');
-						// cross.css('height', img.height + 'px');
-						// cross.attr('src', chrome.extension.getURL('/common/img/cross.png'));
-						// $(document.body).append(cross);
 
 						callback();
 					}
