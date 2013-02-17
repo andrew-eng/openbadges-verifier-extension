@@ -147,11 +147,11 @@ var OpenBadges = (function (openBadges) {
 								callback(successCallback, user);
 							}
 						);
-					});
+					},
+					errorCallback
+					);
 				},
-				function (error) {
-					callback(errorCallback, error);
-				}
+				errorCallback
 			);
 		}
 	};
