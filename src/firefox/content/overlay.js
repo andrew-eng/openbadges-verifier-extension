@@ -19,11 +19,38 @@ var OpenBadgesVerifier = {
     $('body', window.content.document).append(image);
   },
 
+  appendVerifiedIconToBadge : function(badge, verified) {
+
+    var MIN_ICON_SIZE = 16;
+    var ICON_BADGE_SIZE_RATIO = 0.4;
+    var TICK_IMAGE_SRC = 'resource://openbadgesverifier_common/img/green_tick_128.png';
+    var CROSS_IMAGE_SRC = 'resource://openbadgesverifier_common/img/red_cross_128.png';
+
+    var iconWidth, iconTop, iconLeft, iconSrc;
+    var badgePos = $(badge).offset();
+
+    // Calculate the size of the icon. Either a fraction of the badge size
+    // or a minimum size.
+    iconWidth = Math.min(badge.width, badge.height) * ICON_BADGE_SIZE_RATIO;
+    iconWidth = iconWidth < MIN_ICON_SIZE ? MIN_ICON_SIZE : iconWidth;
+
+    // Position the icon at the bottom right hand corner of the badge.
+    iconTop = badgePos.top + badge.height - iconWidth;
+    iconLeft = badgePos.left + badge.width - iconWidth;
+
+    if (verified == true) {
+      iconSrc = TICK_IMAGE_SRC;
+    } else {
+      iconSrc = CROSS_IMAGE_SRC;
+    }
+
+    OpenBadgesVerifier.appendImageToBody(iconTop, iconLeft, iconWidth, iconWidth,
+      iconSrc);
+  },
+
   onMenuItemCommand: function() {
 
-    var tickImageSrc = 'resource://openbadgesverifier_common/img/tick.png';
-    var crossImageSrc = 'resource://openbadgesverifier_common/img/cross.png';
-
+    // var email = 'andrew.engwy@gmail.com';
     var email = prompt('Please enter backpack email:');
 
     if (!email) {
@@ -39,18 +66,14 @@ var OpenBadgesVerifier = {
         function (assertion) {
           Firebug.Console.log('Verified: `' + assertion.badge.name + '`');
 
-          var offset = $(img).offset();
-          OpenBadgesVerifier.appendImageToBody(offset.top, offset.left,
-            img.width, img.height, tickImageSrc);
+          OpenBadgesVerifier.appendVerifiedIconToBadge(img, true);
         },
         function (error) {
           Firebug.Console.log(error);
           if (error === 'Not a badge.') {
             return;
           }
-
-          OpenBadgesVerifier.appendImageToBody(offset.top, offset.left,
-            img.width, img.height, tickImageSrc);
+          OpenBadgesVerifier.appendVerifiedIconToBadge(img, false);
         }
       );
     });
