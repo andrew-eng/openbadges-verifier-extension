@@ -10,9 +10,9 @@ A Chrome and Firefox Extension to verify Open Badges Infrastructure compliant di
 ### Google Chrome
 
 1. Clone this repo
-2. Navigate to the [extensions page](chrome://extensions).
+2. Navigate to the extensions page.
 3. Make sure 'Developer mode' is checked.
-4. Click on 'Load unpacked extension...' and select the project directory.
+4. Click on 'Load unpacked extension...' and select the 'src' directory.
 
 ### Firefox
 
