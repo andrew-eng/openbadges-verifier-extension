@@ -109,7 +109,20 @@
   vertical-align: middle;
 }
 
-#openbadges-lightbox .summary div img {
-  width: 100px;
-  height: 100px;
+#openbadges-lightbox .summary div p.success {
+  padding: 0;
+  margin: auto;
+  width: 128px;
+  height: 128px;
+  background-repeat: no-repeat;
+  background-image: url('chrome-extension://__MSG_@@extension_id__/common/img/success.png');
+}
+
+#openbadges-lightbox .summary div p.failure {
+  padding: 0;
+  margin: auto;
+  width: 128px;
+  height: 128px;
+  background-repeat: no-repeat;
+  background-image: url('chrome-extension://__MSG_@@extension_id__/common/img/failure.png');
 }

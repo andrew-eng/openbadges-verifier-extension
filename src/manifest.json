@@ -57,10 +57,11 @@
 
 	"web_accessible_resources":
 	[
-		"common/img/green_tick_128.png",
-	  "common/img/red_cross_128.png",
-	  "common/img/icon128.png",
-	  "common/html/lightbox.html"
+		"common/img/success.png",
+		"common/img/failure.png",
+		"common/html/lightbox.html",
+		"common/img/red_cross_128.png",
+		"common/img/green_tick_128.png"
 	],
 
 	"permissions":
