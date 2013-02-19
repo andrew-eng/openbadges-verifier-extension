@@ -47,8 +47,7 @@ var OpenBadgesVerifier = {
 
     var LIGHTBOX_CSS_SRC = "resource://openbadgesverifier_common/css/lightbox-style.css";
     var LIGHTBOX_HTML_SRC = 'resource://openbadgesverifier_common/html/lightbox.html';
-
-    // var email = 'andrew.engwy@gmail.com';
+    
     var email = prompt('Please enter backpack email:');
 
     if (!email) {
@@ -56,6 +55,7 @@ var OpenBadgesVerifier = {
     }
 
     $('.badge-result', window.content.document).remove();
+    $('#openbadges-lightbox', window.content.document).remove();
 
     // TODO: search css for urls in background styles too
     // $('img[src$=".png"]', window.content.document).each(function (index, img) {
@@ -107,12 +107,18 @@ var OpenBadgesVerifier = {
       },
       function (error) {
 
-        // Get service to load css into DOM
-        var styleSheetService = Components.classes["@mozilla.org/content/style-sheet-service;1"]
-                        .getService(Components.interfaces.nsIStyleSheetService);
-        var uri = Services.io.newURI(LIGHTBOX_CSS_SRC, null, null);
-        styleSheetService.loadAndRegisterSheet(uri, styleSheetService.USER_SHEET);
+        // Insert lightbox css file
+        var lightboxStyleExist = $("link[href^='" + LIGHTBOX_CSS_SRC + "']", 
+          window.content.document);
 
+        if (!lightboxStyleExist.length) {
+          var lightboxStyle = $("<link/>", window.content.document);
+          lightboxStyle.attr("rel", "stylesheet");
+          lightboxStyle.attr("type", "text/css");
+          lightboxStyle.attr("href", LIGHTBOX_CSS_SRC);
+          $('head', window.content.document).append(lightboxStyle);
+        }
+      
         // Get lightbox html
         var request = new XMLHttpRequest();
         request.open('GET', LIGHTBOX_HTML_SRC, false);
@@ -143,35 +149,7 @@ var OpenBadgesVerifier = {
         }
         $(window.content.document).keyup(keyUp);
 
-
         $('body', window.content.document).append(lightbox);
-
-        // $.ajax({
-        //   url: 'resource://openbadgesverifier_common/html/lightbox.html',
-        //   success: function (lightbox) {
-        //     Firebug.Console.log("Inside success");
-        //     // lightbox = $(lightbox, window.content.document);
-        //     // lightbox.find('#email').text(email);
-        //     // lightbox.find('#success').text(success);
-        //     // lightbox.find('#failure').text(badge_count - success);
-
-        //     // lightbox.find('span.close, div.background').click(function () {
-        //     //   lightbox.remove();
-        //     // });
-
-        //     // // esc button closes lightbox
-        //     // function keyUp(event) {
-        //     //   if (event.which === 27) {
-        //     //     event.preventDefault();
-        //     //     lightbox.remove();
-        //     //     $(document).unbind('keyup', keyUp);
-        //     //   }
-        //     // }
-        //     // $(document).keyup(keyUp);
-
-        //     // $(document.body).append(lightbox);
-        //   }
-        // });
       }
     );
   }
