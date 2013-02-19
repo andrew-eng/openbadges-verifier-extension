@@ -6,7 +6,7 @@
   
     <em:id>openbadgesverifier@mozilla.org</em:id>
     <em:name>Open Badges Verifier</em:name>
-    <em:version>2.0</em:version>
+    <em:version>1.0</em:version>
     <em:description>An extension to verify Open Badges Infrastructure compliant digital badges.</em:description>
     <em:creator>Andrew Eng</em:creator>
     <em:iconURL>resource://openbadgesverifier_common/img/icon48.png</em:iconURL>
