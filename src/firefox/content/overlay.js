@@ -45,7 +45,9 @@ var OpenBadgesVerifier = {
 
   onMenuItemCommand: function() {
 
-    // var email = 'andrew.engwy@gmail.com';
+    var LIGHTBOX_CSS_SRC = "resource://openbadgesverifier_common/css/lightbox-style.css";
+    var LIGHTBOX_HTML_SRC = 'resource://openbadgesverifier_common/html/lightbox.html';
+    
     var email = prompt('Please enter backpack email:');
 
     if (!email) {
@@ -53,25 +55,103 @@ var OpenBadgesVerifier = {
     }
 
     $('.badge-result', window.content.document).remove();
+    $('#openbadges-lightbox', window.content.document).remove();
 
     // TODO: search css for urls in background styles too
-    $('img[src$=".png"]', window.content.document).each(function (index, img) {
+    // $('img[src$=".png"]', window.content.document).each(function (index, img) {
 
-      OpenBadges.Verifier.verify(email, img.src,
-        function (assertion) {
-          Firebug.Console.log('Verified: `' + assertion.badge.name + '`');
+    //   OpenBadges.Verifier.verify(email, img.src,
+    //     function (assertion) {
+    //       Firebug.Console.log('Verified: `' + assertion.badge.name + '`');
 
-          OpenBadgesVerifier.appendVerifiedIconToBadge(img, true);
-        },
-        function (error) {
-          Firebug.Console.log(error);
-          if (error === 'Not a badge.') {
-            return;
+    //       OpenBadgesVerifier.appendVerifiedIconToBadge(img, true);
+    //     },
+    //     function (error) {
+    //       Firebug.Console.log(error);
+    //       if (error === 'Not a badge.') {
+    //         return;
+    //       }
+    //       OpenBadgesVerifier.appendVerifiedIconToBadge(img, false);
+    //     }
+    //   );
+    // });
+
+    var images = $.makeArray($('img[src$=".png"]', window.content.document));
+    var success = 0;
+    var badge_count = images.length;
+
+    async.map(images,
+      function (img, callback) {
+        OpenBadges.Verifier.verify(email, img.src,
+          function (assertion) {
+            console.log('Verified: `' + assertion.badge.name + '`');
+
+            OpenBadgesVerifier.appendVerifiedIconToBadge(img, true);
+
+            success++;
+            callback();
+          },
+          function (error) {
+            console.log(error);
+            if (error === 'Not a badge.') {
+              badge_count--;
+              callback();
+              return;
+            }
+
+            OpenBadgesVerifier.appendVerifiedIconToBadge(img, false);
+
+            callback();
           }
-          OpenBadgesVerifier.appendVerifiedIconToBadge(img, false);
+        );
+      },
+      function (error) {
+
+        // Insert lightbox css file
+        var lightboxStyleExist = $("link[href^='" + LIGHTBOX_CSS_SRC + "']", 
+          window.content.document);
+
+        if (!lightboxStyleExist.length) {
+          var lightboxStyle = $("<link/>", window.content.document);
+          lightboxStyle.attr("rel", "stylesheet");
+          lightboxStyle.attr("type", "text/css");
+          lightboxStyle.attr("href", LIGHTBOX_CSS_SRC);
+          $('head', window.content.document).append(lightboxStyle);
         }
-      );
-    });
+      
+        // Get lightbox html
+        var request = new XMLHttpRequest();
+        request.open('GET', LIGHTBOX_HTML_SRC, false);
+        request.send(null);
+        if(request.status !== 0){
+          throw("Lightbox html not found!");
+        }
+
+        var data = request.responseText;
+
+        // Create jquery object and change some of the variables.
+        var lightbox = $(data, window.content.document);
+        lightbox.find('#email').text(email);
+        lightbox.find('#success').text(success);
+        lightbox.find('#failure').text(badge_count - success);
+
+        lightbox.find('span.close, div.background').click(function () {
+          lightbox.remove();
+        });
+
+        // Esc button closes lightbox
+        function keyUp(event) {
+          if (event.which === 27) {
+            event.preventDefault();
+            lightbox.remove();
+            $(window.content.document).unbind('keyup', keyUp);
+          }
+        }
+        $(window.content.document).keyup(keyUp);
+
+        $('body', window.content.document).append(lightbox);
+      }
+    );
   }
 };
 
