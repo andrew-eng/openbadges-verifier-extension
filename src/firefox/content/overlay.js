@@ -4,7 +4,26 @@ var OpenBadgesVerifier = {
 
   onLoad: function() {
     'use strict';
-    this.initialized = true;
+
+    var VERIFY_BUTTON_ID = "openbadgesverifier-verify-button";
+    var NAV_TOOLBAR_ID = "nav-bar";
+
+    // Get preference for this extension.
+    var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+      .getService(Components.interfaces.nsIPrefService)
+      .getBranch("extensions.openbadgesverifier.");
+    prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
+
+    // Install verify button on first run.
+    if (prefs.getBoolPref("isFirstRun")) {
+      var toolbar = document.getElementById(NAV_TOOLBAR_ID);
+
+      toolbar.insertItem(VERIFY_BUTTON_ID, null);
+      toolbar.setAttribute("currentset", toolbar.currentSet);
+      document.persist(toolbar.id, "currentset");
+
+      prefs.setBoolPref("isFirstRun", false);
+    }
   },
 
   appendVerifiedIconToBadge : function(badge, verified) {
@@ -160,4 +179,4 @@ var OpenBadgesVerifier = {
   }
 };
 
-window.addEventListener("load", function(e) { OpenBadgesVerifier.onLoad(e); }, false); 
+window.addEventListener("load", function(e) { OpenBadgesVerifier.onLoad(); }, false); 

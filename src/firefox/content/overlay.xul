@@ -27,7 +27,7 @@
 
   <!-- Toolbar Button -->
   <toolbarpalette id="BrowserToolbarPalette">
-    <toolbarbutton id="verify-button"
+    <toolbarbutton id="openbadgesverifier-verify-button"
       label="&verifybadges;"
       tooltiptext="&verifybadges;"
       oncommand="OpenBadgesVerifier.onMenuItemCommand();"
