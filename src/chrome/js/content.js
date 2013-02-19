@@ -7,9 +7,9 @@
 
 	chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
 
-    var LIGHTBOX_HTML_SRC = 'common/html/lightbox.html';
-    var SUCCESS_IMG_SRC = '/common/img/success.png';
-    var FAILURE_IMG_SRC = '/common/img/failure.png';
+		var LIGHTBOX_HTML_SRC = 'common/html/lightbox.html';
+		var SUCCESS_IMG_SRC = '/common/img/success.png';
+		var FAILURE_IMG_SRC = '/common/img/failure.png';
 
 		function appendVerifiedIconToBadge(badge, verified) {
 
@@ -55,6 +55,7 @@
 
 		// remove previous results if any
 		$('.badge-result').remove();
+		$('#openbadges-lightbox').remove();
 
 		// TODO: search css for urls in background styles too
 		/*
@@ -107,10 +108,10 @@
 						lightbox.find('#email').text(email);
 						lightbox.find('#success').text(success);
 						lightbox.find('#failure').text(badge_count - success);
-		        lightbox.find('.success').css('background-image',
-		        	"url(" + chrome.extension.getURL(SUCCESS_IMG_SRC) + ")");
-		        lightbox.find('.failure').css('background-image',
-		        	"url(" + chrome.extension.getURL(FAILURE_IMG_SRC) + ")");
+						lightbox.find('.success').css('background-image',
+							"url(" + chrome.extension.getURL(SUCCESS_IMG_SRC) + ")");
+						lightbox.find('.failure').css('background-image',
+							"url(" + chrome.extension.getURL(FAILURE_IMG_SRC) + ")");
 
 						lightbox.find('span.close, div.background').click(function () {
 							lightbox.remove();
