@@ -7,6 +7,10 @@
 
 	chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
 
+    var LIGHTBOX_HTML_SRC = 'common/html/lightbox.html';
+    var SUCCESS_IMG_SRC = '/common/img/success.png';
+    var FAILURE_IMG_SRC = '/common/img/failure.png';
+
 		function appendVerifiedIconToBadge(badge, verified) {
 
 	    var MIN_ICON_SIZE = 16;
@@ -97,12 +101,16 @@
 			},
 			function (error) {
 				$.ajax({
-					url: chrome.extension.getURL('/common/html/lightbox.html'),
+					url: chrome.extension.getURL(LIGHTBOX_HTML_SRC),
 					success: function (lightbox) {
 						lightbox = $(lightbox);
 						lightbox.find('#email').text(email);
 						lightbox.find('#success').text(success);
 						lightbox.find('#failure').text(badge_count - success);
+		        lightbox.find('.success').css('background-image',
+		        	"url(" + chrome.extension.getURL(SUCCESS_IMG_SRC) + ")");
+		        lightbox.find('.failure').css('background-image',
+		        	"url(" + chrome.extension.getURL(FAILURE_IMG_SRC) + ")");
 
 						lightbox.find('span.close, div.background').click(function () {
 							lightbox.remove();

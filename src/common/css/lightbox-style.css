@@ -120,7 +120,6 @@
   width: 128px;
   height: 128px;
   background-repeat: no-repeat;
-  background-image: url('chrome-extension://__MSG_@@extension_id__/common/img/success.png');
 }
 
 #openbadges-lightbox .summary div p.failure {
@@ -129,5 +128,4 @@
   width: 128px;
   height: 128px;
   background-repeat: no-repeat;
-  background-image: url('chrome-extension://__MSG_@@extension_id__/common/img/failure.png');
 }

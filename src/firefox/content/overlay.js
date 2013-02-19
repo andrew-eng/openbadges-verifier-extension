@@ -47,6 +47,8 @@ var OpenBadgesVerifier = {
 
     var LIGHTBOX_CSS_SRC = "resource://openbadgesverifier_common/css/lightbox-style.css";
     var LIGHTBOX_HTML_SRC = 'resource://openbadgesverifier_common/html/lightbox.html';
+    var SUCCESS_IMG_SRC = 'resource://openbadgesverifier_common/img/success.png';
+    var FAILURE_IMG_SRC = 'resource://openbadgesverifier_common/img/failure.png';
     
     var email = prompt('Please enter backpack email:');
 
@@ -134,6 +136,10 @@ var OpenBadgesVerifier = {
         lightbox.find('#email').text(email);
         lightbox.find('#success').text(success);
         lightbox.find('#failure').text(badge_count - success);
+        lightbox.find('.success').css('background-image',
+          "url(" + SUCCESS_IMG_SRC + ")");
+        lightbox.find('.failure').css('background-image',
+          "url(" + FAILURE_IMG_SRC + ")");
 
         lightbox.find('span.close, div.background').click(function () {
           lightbox.remove();
