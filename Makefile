@@ -3,7 +3,7 @@ all: firefox chrome
 firefox:
 	mkdir -p build; \
 	cd src/; \
-	zip -FSr ../build/openbadges-verifier.xpi ./chrome.manifest ./install.rdf ./common/ ./firefox/ -x ./common/test/\*;
+	zip -FSr ../build/openbadges-verifier.xpi ./chrome.manifest ./install.rdf ./common/ ./firefox/ ./defaults/ -x ./common/test/\*;
 
 chrome:
 	mkdir -p build; \

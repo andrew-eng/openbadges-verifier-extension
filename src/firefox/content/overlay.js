@@ -1,75 +1,29 @@
 /* global $, Firefox, prompt, Firebug, document, OpenBadges */
 
-var hello = "YO";
 var OpenBadgesVerifier = {
 
   onLoad: function() {
-    // 'use strict';
+    'use strict';
 
+    var VERIFY_BUTTON_ID = "openbadgesverifier-verify-button";
+    var NAV_TOOLBAR_ID = "nav-bar";
+
+    // Get preference for this extension.
     var prefs = Components.classes["@mozilla.org/preferences-service;1"]
       .getService(Components.interfaces.nsIPrefService)
-      .getBranch("openbadgesverifier.");
+      .getBranch("extensions.openbadgesverifier.");
     prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
 
-    if (!prefs.setCharPref("firstRunDone")) {
-      hello = "FIRST TIME";
-      prefs.setCharPref("firstRunDone", "HELLO");
-    } else{
-      hello = "NOT FIRST TIME";
+    // Install verify button on first run.
+    if (prefs.getBoolPref("isFirstRun")) {
+      var toolbar = document.getElementById(NAV_TOOLBAR_ID);
+
+      toolbar.insertItem(VERIFY_BUTTON_ID, null);
+      toolbar.setAttribute("currentset", toolbar.currentSet);
+      document.persist(toolbar.id, "currentset");
+
+      prefs.setBoolPref("isFirstRun", false);
     }
-
-    // hello = prefs.getCharPref("firstRunDone");
-    // hello = "HELLO";
-    // Firebug.Console.log(prefs);
-    // this.firstRun = this.prefs.getCharPref("symbol").toUpperCase();
-    // hello = "HELLO";
-
-    // this.refreshInformation();    
-    // window.setInterval(this.refreshInformation, 10*60*1000);
-
-    // /**
-    //  * Installs the toolbar button with the given ID into the given
-    //  * toolbar, if it is not already present in the document.
-    //  *
-    //  * @param {string} toolbarId The ID of the toolbar to install to.
-    //  * @param {string} id The ID of the button to install.
-    //  * @param {string} afterId The ID of the element to insert after. @optional
-    //  */
-    // function installButton(toolbarId, id, afterId) {
-    //     if (!document.getElementById(id)) {
-    //         var toolbar = document.getElementById(toolbarId);
-     
-    //         // If no afterId is given, then append the item to the toolbar
-    //         var before = null;
-    //         if (afterId) {
-    //             let elem = document.getElementById(afterId);
-    //             if (elem && elem.parentNode == toolbar)
-    //                 before = elem.nextElementSibling;
-    //         }
-     
-    //         toolbar.insertItem(id, before);
-    //         toolbar.setAttribute("currentset", toolbar.currentSet);
-    //         document.persist(toolbar.id, "currentset");
-     
-    //         if (toolbarId == "addon-bar")
-    //             toolbar.collapsed = false;
-    //     }
-    // }
-    
-    // let firstRunPref = "extensions.xulschoolhello.firstRunDone";
- 
-    // if (!Application.prefs.getValue(firstRunPref)) {
-    //   installButton("addon-bar", "verify-button");
-    //   // all the rest of the first run code goes here.
-    // }
-
-    // if (firstRun) {
-    //     installButton("nav-bar", "my-extension-navbar-button");
-    //     // The "addon-bar" is available since Firefox 4
-    //     installButton("addon-bar", "my-extension-addon-bar-button");
-    // }
-
-    // this.initialized = true;
   },
 
   appendVerifiedIconToBadge : function(badge, verified) {
@@ -114,8 +68,6 @@ var OpenBadgesVerifier = {
     var LIGHTBOX_HTML_SRC = 'resource://openbadgesverifier_common/html/lightbox.html';
     var SUCCESS_IMG_SRC = 'resource://openbadgesverifier_common/img/success.png';
     var FAILURE_IMG_SRC = 'resource://openbadgesverifier_common/img/failure.png';
-
-    Firebug.Console.log(hello);
     
     var email = prompt('Please enter backpack email:');
 

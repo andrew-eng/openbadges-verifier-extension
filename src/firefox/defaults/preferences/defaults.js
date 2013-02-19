@@ -1,1 +1,0 @@
-pref("openbadgesverifier.firstRunDone", "HELLO");

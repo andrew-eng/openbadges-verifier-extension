@@ -1,6 +1,6 @@
-content  openbadgesverifier                firefox/chrome/content/
-skin     openbadgesverifier  classic/1.0   firefox/chrome/skin/
-locale   openbadgesverifier  en-US         firefox/chrome/locale/en-US/
+content  openbadgesverifier                firefox/content/
+skin     openbadgesverifier  classic/1.0   firefox/skin/
+locale   openbadgesverifier  en-US         firefox/locale/en-US/
 resource openbadgesverifier_common         common/
 
 style    chrome://global/content/customizeToolbar.xul chrome://openbadgesverifier/skin/button.css

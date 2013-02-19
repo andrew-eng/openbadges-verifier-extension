@@ -1,0 +1,1 @@
+ pref("extensions.openbadgesverifier.isFirstRun", true);

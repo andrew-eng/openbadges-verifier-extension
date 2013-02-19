@@ -10,7 +10,6 @@
     <em:description>An extension to verify Open Badges Infrastructure compliant digital badges.</em:description>
     <em:creator>Andrew Eng</em:creator>
     <em:iconURL>resource://openbadgesverifier_common/img/icon48.png</em:iconURL>
-    <em:optionsURL>chrome://openbadgesverifier/content/options.xul</em:optionsURL>
 
     <!-- Firefox -->
     <em:targetApplication>
