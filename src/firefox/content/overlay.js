@@ -60,23 +60,18 @@ var OpenBadgesVerifier = {
     $('#openbadges-lightbox', window.content.document).remove();
 
     // TODO: search css for urls in background styles too
-    // $('img[src$=".png"]', window.content.document).each(function (index, img) {
+    /*
+    $('*').each(function () {
+      if ($(this).is('img')) {
+        console.log(this.src);
+      }
 
-    //   OpenBadges.Verifier.verify(email, img.src,
-    //     function (assertion) {
-    //       Firebug.Console.log('Verified: `' + assertion.badge.name + '`');
-
-    //       OpenBadgesVerifier.appendVerifiedIconToBadge(img, true);
-    //     },
-    //     function (error) {
-    //       Firebug.Console.log(error);
-    //       if (error === 'Not a badge.') {
-    //         return;
-    //       }
-    //       OpenBadgesVerifier.appendVerifiedIconToBadge(img, false);
-    //     }
-    //   );
-    // });
+      var bg = $(this).css('background-image');
+      if (/url\(/.test(bg)) {
+        console.log(this);
+      }
+    });
+    */
 
     var images = $.makeArray($('img[src$=".png"]', window.content.document));
     var success = 0;
@@ -86,7 +81,7 @@ var OpenBadgesVerifier = {
       function (img, callback) {
         OpenBadges.Verifier.verify(email, img.src,
           function (assertion) {
-            Firebug.Console.log('Verified: `' + assertion.badge.name + '`');
+            // Firebug.Console.log('Verified: `' + assertion.badge.name + '`');
 
             OpenBadgesVerifier.appendVerifiedIconToBadge(img, true);
 
@@ -94,7 +89,7 @@ var OpenBadgesVerifier = {
             callback();
           },
           function (error) {
-            Firebug.Console.log(error);
+            // Firebug.Console.log(error);
             if (error === 'Not a badge.') {
               badge_count--;
               callback();
