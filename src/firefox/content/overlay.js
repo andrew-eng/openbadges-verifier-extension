@@ -86,7 +86,7 @@ var OpenBadgesVerifier = {
       function (img, callback) {
         OpenBadges.Verifier.verify(email, img.src,
           function (assertion) {
-            console.log('Verified: `' + assertion.badge.name + '`');
+            Firebug.Console.log('Verified: `' + assertion.badge.name + '`');
 
             OpenBadgesVerifier.appendVerifiedIconToBadge(img, true);
 
@@ -94,7 +94,7 @@ var OpenBadgesVerifier = {
             callback();
           },
           function (error) {
-            console.log(error);
+            Firebug.Console.log(error);
             if (error === 'Not a badge.') {
               badge_count--;
               callback();
@@ -120,19 +120,23 @@ var OpenBadgesVerifier = {
           lightboxStyle.attr("href", LIGHTBOX_CSS_SRC);
           $('head', window.content.document).append(lightboxStyle);
         }
-      
-        // Get lightbox html
-        var request = new XMLHttpRequest();
-        request.open('GET', LIGHTBOX_HTML_SRC, false);
-        request.send(null);
-        if(request.status !== 0){
-          throw("Lightbox html not found!");
-        }
 
-        var data = request.responseText;
+        // Read lightbox html into string from resourece.
+        var ioService=Components.classes["@mozilla.org/network/io-service;1"]
+        .getService(Components.interfaces.nsIIOService);
+        var scriptableStream=Components
+          .classes["@mozilla.org/scriptableinputstream;1"]
+          .getService(Components.interfaces.nsIScriptableInputStream);
+
+        var channel = ioService.newChannel(LIGHTBOX_HTML_SRC, null, null);
+        var input = channel.open();
+        scriptableStream.init(input);
+        var lightboxHtml = scriptableStream.read(input.available());
+        scriptableStream.close();
+        input.close();
 
         // Create jquery object and change some of the variables.
-        var lightbox = $(data, window.content.document);
+        var lightbox = $(lightboxHtml, window.content.document);
         lightbox.find('#email').text(email);
         lightbox.find('#success').text(success);
         lightbox.find('#failure').text(badge_count - success);
