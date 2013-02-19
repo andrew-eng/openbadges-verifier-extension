@@ -102,6 +102,11 @@
   vertical-align: middle;
 }
 
+#openbadges-lightbox .summary  span {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
 #openbadges-lightbox .summary div {
   width: 50%;
   float: left;
